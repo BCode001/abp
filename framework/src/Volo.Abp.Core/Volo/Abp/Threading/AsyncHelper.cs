@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Nito.AsyncEx;
@@ -57,7 +58,11 @@ namespace Volo.Abp.Threading
         /// <returns>Result of the async operation</returns>
         public static TResult RunSync<TResult>(Func<Task<TResult>> func)
         {
-            return AsyncContext.Run(func);
+            return _myTaskFactory
+                .StartNew(func)
+                .Unwrap()
+                .GetAwaiter()
+                .GetResult();
         }
 
         /// <summary>
@@ -66,7 +71,17 @@ namespace Volo.Abp.Threading
         /// <param name="action">An async action</param>
         public static void RunSync(Func<Task> action)
         {
-            AsyncContext.Run(action);
+            _myTaskFactory
+                .StartNew(action)
+                .Unwrap()
+                .GetAwaiter()
+                .GetResult();
         }
+
+        private static readonly TaskFactory _myTaskFactory = new
+            TaskFactory(CancellationToken.None,
+                TaskCreationOptions.None,
+                TaskContinuationOptions.None,
+                TaskScheduler.Default);
     }
 }
