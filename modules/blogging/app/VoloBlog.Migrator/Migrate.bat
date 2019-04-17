@@ -1,0 +1,1 @@
+@dotnet VoloBlog.Migrator.dll

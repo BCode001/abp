@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using CommonMark;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -28,39 +29,22 @@ namespace Volo.Blogging.Pages.Blog
             return title;
         }
 
-        public string GetShortContent(string content) //TODO: This should be moved to its own place!
+        public string GetPreviewOfContent(string content) //TODO: This should be moved to its own place!
         {
-            var openingTag = "<p>";
-            var closingTag = "</p>";
+            var html = RenderMarkDownToHtmlAsString(content);
 
-            var html = RenderMarkdownToString(content);
+            var paragraphs = Regex.Matches(html, "<p>(.*?)</p>", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-            var splittedHtml = html.Split(closingTag);
+            var firstParagraph = paragraphs.Count <= 0 ? html : paragraphs[0].Groups[1].Value;
 
-            if (splittedHtml.Length < 1)
-            {
-                return "";
-            }
-
-            var firstHtmlPart = splittedHtml[0];
-            var paragraphStartIndex = firstHtmlPart.IndexOf(openingTag, StringComparison.Ordinal) + openingTag.Length;
-
-            if (firstHtmlPart.Length - paragraphStartIndex <= MaxShortContentLength)
-            {
-                return firstHtmlPart.Substring(paragraphStartIndex);
-            }
-
-            return firstHtmlPart.Substring(paragraphStartIndex, MaxShortContentLength) + "...";
+            return string.IsNullOrEmpty(firstParagraph) ?
+                string.Empty :
+                firstParagraph.TruncateWithPostfix(MaxShortContentLength, "...");
         }
 
-        public IHtmlContent RenderMarkdownToHtml(string content)
+        public IHtmlContent RenderMarkdownToHtml(string markdown)
         {
-            byte[] bytes = Encoding.Default.GetBytes(content);
-            var utf8Content = Encoding.UTF8.GetString(bytes);
-
-            var html = CommonMarkConverter.Convert(utf8Content);
-
-            return new HtmlString(html);
+            return new HtmlString(RenderMarkDownToHtmlAsString(markdown));
         }
 
         public string RenderMarkdownToString(string content)
@@ -75,11 +59,11 @@ namespace Volo.Blogging.Pages.Blog
         {
             var timeDiff = DateTime.Now - dt;
 
-            var diffInDays = (int) timeDiff.TotalDays;
+            var diffInDays = (int)timeDiff.TotalDays;
 
             if (diffInDays >= 365)
             {
-                return  L["YearsAgo", diffInDays / 365];
+                return L["YearsAgo", diffInDays / 365];
             }
             if (diffInDays >= 30)
             {
@@ -94,7 +78,7 @@ namespace Volo.Blogging.Pages.Blog
                 return L["DaysAgo", diffInDays];
             }
 
-            var diffInSeconds = (int) timeDiff.TotalSeconds;
+            var diffInSeconds = (int)timeDiff.TotalSeconds;
 
             if (diffInSeconds >= 3600)
             {
@@ -106,10 +90,23 @@ namespace Volo.Blogging.Pages.Blog
             }
             if (diffInSeconds >= 1)
             {
-                return  L["SecondsAgo", diffInSeconds];
+                return L["SecondsAgo", diffInSeconds];
             }
 
             return L["Now"];
+        }
+
+        private static string RenderMarkDownToHtmlAsString(string markdown)
+        {
+            if (string.IsNullOrWhiteSpace(markdown))
+            {
+                return string.Empty;
+            }
+
+            byte[] bytes = Encoding.Default.GetBytes(markdown);
+            var utf8Content = Encoding.UTF8.GetString(bytes);
+
+            return CommonMarkConverter.Convert(utf8Content);
         }
     }
 }
