@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -103,6 +105,20 @@ namespace Volo.Abp.FluentValidation
         }
 
 
+        [Fact]
+        public void Nested_Should_Work()
+        {
+            Assert.Throws<AbpValidationException>(() => _myAppService.MyMethod2(new MyMethod2Input
+            {
+                Value = "11",
+                Inner = new MyMethod2InnerDto()
+                {
+                    Age = 5 //Should greater than or equal 10
+                }
+            }));
+        }
+
+
         [DependsOn(typeof(AbpAutofacModule))]
         [DependsOn(typeof(AbpFluentValidationModule))]
         public class TestModule : AbpModule
@@ -131,6 +147,8 @@ namespace Volo.Abp.FluentValidation
             Task<string> MyMethodAsync(MyMethodInput input);
 
             string NotValidateMyMethod(MyMethodInput4 input);
+
+            string MyMethod2(MyMethod2Input input);
         }
 
         public class MyAppService : IMyAppService, ITransientDependency
@@ -149,6 +167,11 @@ namespace Volo.Abp.FluentValidation
             public string NotValidateMyMethod(MyMethodInput4 input)
             {
                 return input.MyStringValue4;
+            }
+
+            public string MyMethod2(MyMethod2Input input)
+            {
+                return input.Value;
             }
         }
 
@@ -202,5 +225,28 @@ namespace Volo.Abp.FluentValidation
                 RuleFor(x => x.MyStringValue3).Equal("ccc");
             }
         }
+
+
+        public class MyMethod2Input
+        {
+            [Required]
+            public string Value { get; set; }
+
+            public MyMethod2InnerDto Inner { get; set; }
+        }
+
+        public class MyMethod2InnerDto
+        {
+            public int Age { get; set; }
+        }
+
+        public class MyMethod2InnerDtoValidator : AbstractValidator<MyMethod2InnerDto>
+        {
+            public MyMethod2InnerDtoValidator()
+            {
+                RuleFor(x => x.Age).GreaterThanOrEqualTo(10);
+            }
+        }
+
     }
 }

@@ -41,7 +41,8 @@ namespace Volo.Abp.Validation
             return errors;
         }
 
-        protected virtual void ValidateObjectRecursively(List<ValidationResult> errors, object validatingObject, int currentDepth)
+        protected virtual void ValidateObjectRecursively(List<ValidationResult> errors, object validatingObject,
+            int currentDepth)
         {
             const int maxRecursiveParameterValidationDepth = 8;
 
@@ -62,7 +63,7 @@ namespace Volo.Abp.Validation
             {
                 if (!(validatingObject is IQueryable))
                 {
-                    foreach (var item in (validatingObject as IEnumerable))
+                    foreach (var item in validatingObject as IEnumerable)
                     {
                         ValidateObjectRecursively(errors, item, currentDepth + 1);
                     }
@@ -97,7 +98,7 @@ namespace Volo.Abp.Validation
         }
 
         /// <summary>
-        /// Gets all errors from properties for DataAnnotations attributes and IValidatableObject interface.
+        ///     Gets all errors from properties for DataAnnotations attributes and IValidatableObject interface.
         /// </summary>
         public virtual List<ValidationResult> GetDataAnnotationErrors(object validatingObject)
         {
@@ -119,7 +120,8 @@ namespace Volo.Abp.Validation
             return errors;
         }
 
-        protected virtual void AddPropertyErrors(object validatingObject, PropertyDescriptor property, List<ValidationResult> errors)
+        protected virtual void AddPropertyErrors(object validatingObject, PropertyDescriptor property,
+            List<ValidationResult> errors)
         {
             var validationAttributes = property.Attributes.OfType<ValidationAttribute>().ToArray();
             if (validationAttributes.IsNullOrEmpty())
