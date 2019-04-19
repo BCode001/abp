@@ -7,6 +7,7 @@ using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.Localization.Resource;
 using Volo.Abp.AspNetCore.TestBase;
 using Volo.Abp.Autofac;
+using Volo.Abp.FluentValidation.AspNetCore;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.Resources.AbpValidation;
 using Volo.Abp.MemoryDb;
@@ -20,6 +21,7 @@ namespace Volo.Abp.AspNetCore.Mvc
         typeof(AbpAspNetCoreTestBaseModule),
         typeof(AbpMemoryDbTestModule),
         typeof(AbpAspNetCoreMvcModule),
+        typeof(AbpFluentValidationAspNetCoreModule),
         typeof(AbpAutofacModule)
         )]
     public class AbpAspNetCoreMvcTestModule : AbpModule

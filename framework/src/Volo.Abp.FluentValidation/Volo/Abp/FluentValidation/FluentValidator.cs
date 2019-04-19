@@ -61,7 +61,7 @@ namespace Volo.Abp.FluentValidation
                 return;
             }
 
-            errors.AddRange(GetDataAnnotationErrors(validatingObject));
+            errors.AddRange(GetFluentErrors(validatingObject));
 
             //Validate items of enumerable
             if (validatingObject is IEnumerable)
@@ -102,7 +102,7 @@ namespace Volo.Abp.FluentValidation
             }
         }
 
-        public virtual List<ValidationResult> GetDataAnnotationErrors(object validatingObject)
+        public virtual List<ValidationResult> GetFluentErrors(object validatingObject)
         {
             var errors = new List<ValidationResult>();
 
