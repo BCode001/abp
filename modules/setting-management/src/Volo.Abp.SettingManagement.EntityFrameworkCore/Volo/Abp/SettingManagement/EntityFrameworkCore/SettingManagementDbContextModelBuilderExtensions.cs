@@ -27,7 +27,7 @@ namespace Volo.Abp.SettingManagement.EntityFrameworkCore
                 b.Property(x => x.ProviderName).HasMaxLength(SettingConsts.MaxProviderNameLength);
                 b.Property(x => x.ProviderKey).HasMaxLength(SettingConsts.MaxProviderKeyLength);
 
-                b.HasIndex(x => new {x.Name, x.ProviderName, x.ProviderKey});
+                b.HasIndex(x => new {x.Name, x.ProviderName, x.ProviderKey}).IsUnique().HasFilter(null);;
             });
         }
     }
