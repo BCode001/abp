@@ -15,8 +15,10 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
+using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
@@ -74,6 +76,17 @@ namespace ChartTest
             ConfigureNavigationServices();
             ConfigureAutoApiControllers();
             ConfigureSwaggerServices(context.Services);
+
+            Configure<BundlingOptions>(options =>
+            {
+                options.StyleBundles
+                    .Get(StandardBundles.Styles.Global)
+                    .AddFiles("/libs/chart.js/Chart.min.css");
+
+                options.ScriptBundles
+                    .Get(StandardBundles.Scripts.Global)
+                    .AddFiles("/libs/chart.js/Chart.bundle.min.js");
+            });
         }
 
         private void ConfigureDatabaseServices()
