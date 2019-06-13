@@ -3,6 +3,6 @@
   "name": "ChartTest",
   "private": true,
   "dependencies": {
-    "@abp/aspnetcore.mvc.ui.theme.basic": "^0.6.3"
+    "@abp/aspnetcore.mvc.ui.theme.basic": "^0.6.4"
   }
 }

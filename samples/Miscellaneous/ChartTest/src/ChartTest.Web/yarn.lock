@@ -2,19 +2,19 @@
 # yarn lockfile v1
 
 
-"@abp/aspnetcore.mvc.ui.theme.basic@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.basic/-/aspnetcore.mvc.ui.theme.basic-0.6.3.tgz#236539c291ca77402a648ada585863afb9212531"
-  integrity sha512-nu3Z7TOdwHJu5aRTxu6M4GzWcnNcdU8e7bagL07lTbQdN7VrEgbbF5kLweT825+JU6U1DZtovT2eOBUU8so9iA==
+"@abp/aspnetcore.mvc.ui.theme.basic@^0.6.4":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.basic/-/aspnetcore.mvc.ui.theme.basic-0.6.4.tgz#bbeaf4988e6e7880a829cd5ab032c3f435c9a04b"
+  integrity sha512-bbt0XZKBUSPhnGo5QGlatnDbOfmEUgpotPpoYXjC3csofm+jU29rQi4Bu4Kuy73hTmrzCLphuAme3W64eky4bQ==
   dependencies:
-    "@abp/aspnetcore.mvc.ui.theme.shared" "^0.6.3"
+    "@abp/aspnetcore.mvc.ui.theme.shared" "^0.6.4"
 
-"@abp/aspnetcore.mvc.ui.theme.shared@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.shared/-/aspnetcore.mvc.ui.theme.shared-0.6.3.tgz#90114c38bbd5ad0643eb8f9f6fddc183d8fdb170"
-  integrity sha512-c+pYRGpQeY7sMVaB1oIwfDc2EyEFaZsJVPaWGyDC/xteWS1liRNqmo6CT6HwIA22PTg2EtiOqT9QeFczR0+z2g==
+"@abp/aspnetcore.mvc.ui.theme.shared@^0.6.4":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.shared/-/aspnetcore.mvc.ui.theme.shared-0.6.4.tgz#d01e9d8d153fcf3092cbab38b519d6497c3f4afd"
+  integrity sha512-DbtetgglaEhzoJN6W5jp/p7v1MFKZbiWfsgl/fYBnE41LCbbCnFFWJ6/TVnU0lTqdg8cs+WB8F7OTl/dfPp4Rg==
   dependencies:
-    "@abp/aspnetcore.mvc.ui" "^0.6.3"
+    "@abp/aspnetcore.mvc.ui" "^0.6.4"
     "@abp/bootstrap" "^0.6.2"
     "@abp/datatables.net-bs4" "^0.6.2"
     "@abp/font-awesome" "^0.6.2"
@@ -27,10 +27,10 @@
     "@abp/timeago" "^0.6.2"
     "@abp/toastr" "^0.6.2"
 
-"@abp/aspnetcore.mvc.ui@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui/-/aspnetcore.mvc.ui-0.6.3.tgz#8812cb8ca38dbe2d7fcc13319c59cc71c0a53e32"
-  integrity sha512-lOAPaCv/euA0T4F2MQzwL59g/hELN1jlp6l8M7zclCwvGswxkCCgSOwQPYfKvDKv4TvjE6qsE0K12hgT/fWZAw==
+"@abp/aspnetcore.mvc.ui@^0.6.4":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui/-/aspnetcore.mvc.ui-0.6.4.tgz#db28bce4eaf57b28e8a4465373809976cea6b950"
+  integrity sha512-wPDPtrxY6sRksxrmOZE9fYLmgOD7eCTL8gugLGsp6rXZUykYAMmKhyswN3BP/Vml08RM2CvcMiz+AC3H75vldA==
   dependencies:
     ansi-colors "^3.2.4"
     extend-object "^1.0.0"
